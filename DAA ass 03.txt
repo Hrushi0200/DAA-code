@@ -1,0 +1,76 @@
+def fractional_knapsack(value, weight, capacity):
+     index = list(range(len(value)))
+     ratio = [v/w for v, w in zip(value, weight)]
+     index.sort(key=lambda i: ratio[i], reverse=True)
+     max_value = 0
+     fractions = [0]*len(value)
+     for i in index:
+         if weight[i] <= capacity:
+             max_value += value[i]
+             capacity -= weight[i]
+         else:
+             fractions[i] = capacity/weight[i]
+             max_value += value[i]*capacity/weight[i]
+         break
+     return max_value
+n = int(input('Enter number of items: '))
+value = input('Enter the values of the {} item(s) in order: '.format(n)).split()
+value = [int(v) for v in value]
+weight = input('Enter the positive weights of the {} item(s) in order: '.format(n)).split()
+weight = [int(w) for w in weight]
+capacity = int(input('Enter maximum weight: '))
+max_value = fractional_knapsack(value, weight, capacity)
+print('The maximum value of items that can be carried:', max_value)
+
+
+
+
+
+def knapsack (W,weights,values):
+    ratio=[v/w for v,w in zip (values,weights)]
+    n=len(weights)
+    index = list(range(n))
+    index.sort(key=lambda i: ratio[i], reverse=True)
+    max_values=0
+    fraction=[0]*n
+    for i in index:
+        if weights[i]<=W:
+            max_values+=values[i]
+            W-=weights[i]
+            fraction[i]=1
+        else:
+            fraction[i]=W/weights[i]
+            max_values+=values[i]*fraction[i]
+            break
+   ## print (fraction)
+    return max_values
+W=50
+values=[60,100,120]
+weighths=[10,20,30]
+print(knapsack (W,weighths,values))
+
+
+
+
+
+def bag(W,wi,val):
+    ratio=[v/w for v,w in zip (val,wi)]
+    n=len(wi)
+    index=list(range(n))
+    index.sort(key=lambda i: ratio[i] ,reverse=True)
+    fraction=[0]*n
+    max_values=0
+    for i in index:
+        if wi[i]<=W:
+            W-=wi[i]
+            max_values+=val[i]
+            fraction[i]=1
+        else:
+            fraction[i]=W/wi[i]
+            max_values+=val[i]*fraction[i]
+            break
+    return max_values
+val=[10,20,30]
+wi=[4,1,2]
+W=5
+print(bag(W,wi,val))
